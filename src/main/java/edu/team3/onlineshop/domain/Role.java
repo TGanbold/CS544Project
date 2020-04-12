@@ -6,6 +6,11 @@ import edu.team3.onlineshop.View;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author team 3
+ *
+ */
+
 @Entity(name = "roles")
 public class Role {
     @Id
@@ -22,6 +27,13 @@ public class Role {
     public Role() {
     }
 
+    public Role(long id) {
+        super();
+        this.id = id;
+    }
+
+
+
     public void setId(long id) {
         this.id = id;
     }
@@ -36,5 +48,13 @@ public class Role {
 
     public long getId() {
         return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public List<User> getUser() {
+        return user;
     }
 }
