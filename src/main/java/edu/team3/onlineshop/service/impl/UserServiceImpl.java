@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ import java.util.Optional;
  */
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService{
 
 	private static final long serialVersionUID = -4677657640652141814L;
 	private String username;
@@ -144,18 +145,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		if(size <= 0) size = 10;
 		Pageable pageable = PageRequest.of(page , size, Sort.by("firstName"));
 		return merchantRepository.findAll(pageable);
-	}
-
-	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<User> user = userRepository.findUserByUsername(username);
-		user.orElseThrow(() -> new UsernameNotFoundException("Invalid username or password."));
-		return (UserDetails) new UserServiceImpl((user.get()));
-	}
-
-	public User getUser() {
-		return user;
 	}
 
 }

@@ -11,6 +11,8 @@ import edu.team3.onlineshop.factory.UserFactory;
 import edu.team3.onlineshop.security.JwtUtil;
 import edu.team3.onlineshop.service.FileStorageService;
 import edu.team3.onlineshop.service.UserService;
+import edu.team3.onlineshop.service.impl.UserDetailsImpl;
+import edu.team3.onlineshop.service.impl.UserDetailsServiceImpl;
 import edu.team3.onlineshop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,7 +46,7 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private UserServiceImpl userDetailService;
+    private UserDetailsServiceImpl userDetailService;
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -75,7 +78,7 @@ public class UserController {
             throw new Exception("Invalid username/password");
         }
 
-        final UserServiceImpl userDetail = (UserServiceImpl) userDetailService.loadUserByUsername(username);
+        final UserDetailsImpl userDetail = (UserDetailsImpl) userDetailService.loadUserByUsername(username);
         final String jwtToken = jwtUtil.generateToken((UserDetails) userDetail);
         Map<String, Object> response = new HashMap<>();
         response.put("token", jwtToken);

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.team3.onlineshop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,9 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
 /**
- * @author group3
+ * @author team 3
  *
  */
 @Entity(name = "Merchants")
@@ -52,12 +48,21 @@ public class Merchant extends User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "merchant" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Product> products;
-
+	
+	
+	/**
+	 * 
+	 */
 	public Merchant() {
 		super();
 	}
 	
-
+	
+	
+	
+	/**
+	 * 
+	 */
 	public Merchant(long userId) {
 		super();
 	}

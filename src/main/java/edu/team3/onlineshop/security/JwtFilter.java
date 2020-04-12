@@ -1,5 +1,6 @@
 package edu.team3.onlineshop.security;
-import edu.team3.onlineshop.service.impl.UserServiceImpl;
+
+import edu.team3.onlineshop.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,16 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author team 3
- *
- */
 
 @Component
-public class JwtFilter extends OncePerRequestFilter  {
+public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private UserServiceImpl userDetailService;
+	private UserDetailsServiceImpl userDetailService;
 	@Autowired
 	private JwtUtil jwtUtil;
 	
@@ -31,6 +28,7 @@ public class JwtFilter extends OncePerRequestFilter  {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		final String authorizationHeader = request.getHeader("Authorization");
+		//System.err.println("JwtFilter request: "+request.getHeaderNames());
         String username = null;
         String jwt = null;
 
@@ -38,6 +36,7 @@ public class JwtFilter extends OncePerRequestFilter  {
             jwt = authorizationHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
         }
+
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
