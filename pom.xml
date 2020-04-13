@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>onlineshop</name>
+
 	<description>EA course project-team3</description>
 
 	<properties>
