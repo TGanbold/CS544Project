@@ -22,6 +22,8 @@ public class Product {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	
 
 	@JsonView(View.Summary.class)
 	@NotBlank(message = "Title field is required")
