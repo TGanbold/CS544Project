@@ -11,39 +11,68 @@ import javax.validation.constraints.NotBlank;
 
 @Entity(name = "product_image")
 public class ProductImage {
-
-    @JsonView(View.Summary.class)
-    @Id
+	
+	@JsonView(View.Summary.class)
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	private Long id;
+	
+	@JsonView(View.Summary.class)
+	@NotBlank(message = "File Image Required")
+	private String imageUrl;
+	
+	public ProductImage() {
+		
+	}
 
-    @JsonView(View.Summary.class)
-    @NotBlank(message = "File Image Required")
-    private String imageUrl;
+	/**
+	 * @param imageUrl
+	 */
+	public ProductImage(@NotBlank(message = "File Image Required") String imageUrl) {
+		super();
+		this.imageUrl = imageUrl;
+	}
 
-    public ProductImage() {
+	/**
+	 * @param id
+	 */
+	public ProductImage(Long id) {
+		super();
+		this.id = id;
+	}
 
-    }
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
 
-    public ProductImage(@NotBlank(message = "File Image Required") String imageUrl) {
-        super();
-        this.imageUrl = imageUrl;
-    }
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public ProductImage(Long id) {
-        super();
-        this.id = id;
-    }
+	/**
+	 * @return the imageUrl
+	 */
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public Long getId() { return id; }
+	/**
+	 * @param imageUrl the imageUrl to set
+	 */
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
-    public void setId(Long id) { this.id = id; }
-
-    public String getImageUrl() { return imageUrl; }
-
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-
-    @Override
-    public String toString() { return  String.format("ProductImage [id=%s, imageUrl=%s]", id, imageUrl); }
-
+	@Override
+	public String toString() {
+		return String.format("ProductImage [id=%s, imageUrl=%s]", id, imageUrl);
+	}
+	
+	
 }
