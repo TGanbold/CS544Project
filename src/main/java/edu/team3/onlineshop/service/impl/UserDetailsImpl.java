@@ -29,7 +29,7 @@ public class UserDetailsImpl implements UserDetails {
     	this.user = user;
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.isActive = user.isEnabled();
+        this.isActive = user.isIsEnabled();
         this.authorities = new ArrayList<>();
         if(user.getRole() != null) {
         	this.authorities.add(new SimpleGrantedAuthority(user.getRole().getType()));

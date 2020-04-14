@@ -40,7 +40,7 @@ public class User implements Serializable {
 	@NotBlank(message = "Please provide a password.")
 	private String password;
 	
-	private boolean enabled;
+	private boolean isEnabled;
 	
 	@JsonView(View.Summary.class)
 	@Column(unique = true)
@@ -62,7 +62,11 @@ public class User implements Serializable {
 	public User() {
 		
 	}
-	
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
 	public User(Long id) {
 		this.id = id;
 	}
@@ -155,15 +159,15 @@ public class User implements Serializable {
 	/**
 	 * @return the enabled
 	 */
-	public boolean isEnabled() {
-		return enabled;
+	public boolean isIsEnabled() {
+		return isEnabled;
 	}
 
 	/**
 	 * @param enabled the enabled to set
 	 */
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setIsEnabled(boolean enabled) {
+		this.isEnabled = enabled;
 	}
 
 	/**
