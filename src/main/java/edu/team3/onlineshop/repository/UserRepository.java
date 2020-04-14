@@ -18,6 +18,6 @@ public interface UserRepository extends UserBaseRepository<User> {
     Boolean existsUserById(Long id);
     Boolean existsUserByUsernameAndIdIsNot(String username, Long id);
     Iterable<User> findByRoleId(long role_id);
-    User findByEmailIdIgnoreCase(String emailId);
+    User findByUsernameIgnoreCase(String emailId);
     
 }
