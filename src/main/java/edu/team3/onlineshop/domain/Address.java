@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 
 /**
  * A contact is a name and address.
@@ -153,3 +154,16 @@ public class Address implements Cloneable {
 
 }
 
+=======
+/**
+ * @author team 3
+ *
+ */
+@Entity(name="addresses")
+public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+}
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856

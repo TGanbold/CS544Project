@@ -1,5 +1,6 @@
 package edu.team3.onlineshop.domain;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
@@ -21,10 +22,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
+=======
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.team3.onlineshop.View;
+
+
+import javax.persistence.*;
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+<<<<<<< HEAD
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -36,6 +45,13 @@ import edu.team3.onlineshop.View;
 
 /**
  * @author 
+=======
+import java.io.Serializable;
+
+
+/**
+ * @author team 3
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
  *
  */
 
@@ -43,16 +59,22 @@ import edu.team3.onlineshop.View;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable {
 
+<<<<<<< HEAD
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1797511201371820987L;
 
+=======
+	private static final long serialVersionUID = -1797511201371820987L;
+	
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 	@JsonView(View.Summary.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", updatable = false, nullable = false)
 	private long id;
+<<<<<<< HEAD
 
 	@NotEmpty(message = "Please provide a first name.")
 	private String firstName;
@@ -66,11 +88,28 @@ public class User implements Serializable {
 
 	private boolean enabled;
 
+=======
+	
+	@NotEmpty(message = "Please provide a first name.")
+	private String firstName;
+	
+	@NotBlank
+    @NotEmpty(message = "Please provide a last name.")
+	private String lastName;
+	
+	
+	@NotBlank(message = "Please provide a password.")
+	private String password;
+	
+	private boolean enabled;
+	
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 	@JsonView(View.Summary.class)
 	@Column(unique = true)
 	@NotBlank(message = "Please provide an username.")
 	@Email(message = "Please provide a valid email.")
 	private String username;
+<<<<<<< HEAD
 
 	@JsonView(View.Summary.class)
 	@ManyToOne(cascade = CascadeType.MERGE)
@@ -90,6 +129,29 @@ public class User implements Serializable {
 	public User(Long id) {
 		this.id = id;
 	}
+=======
+	
+	@JsonView(View.Summary.class)
+	@ManyToOne(cascade = CascadeType.MERGE)
+	//@NotNull(message = "Please provide at least one role.")
+	private Role role;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address billingAddress;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address shippingAddress;
+	
+	public User() {
+		
+	}
+	
+	public User(Long id) {
+		this.id = id;
+	}
+	
+	
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 
 	/**
 	 * @param firstName
@@ -101,11 +163,19 @@ public class User implements Serializable {
 	 * @param shippingAddress
 	 */
 	public User(@NotEmpty(message = "Please provide a first name.") String firstName,
+<<<<<<< HEAD
 			@NotBlank @NotEmpty(message = "Please provide a last name.") String lastName,
 			@NotBlank(message = "Please provide a password.") String password,
 			@NotBlank(message = "Please provide an username.") @Email(message = "Please provide a valid email.") String username,
 			@NotNull(message = "Please provide at least one role.") Role role, Address billingAddress,
 			Address shippingAddress) {
+=======
+                @NotBlank @NotEmpty(message = "Please provide a last name.") String lastName,
+                @NotBlank(message = "Please provide a password.") String password,
+                @NotBlank(message = "Please provide an username.") @Email(message = "Please provide a valid email.") String username,
+                @NotNull(message = "Please provide at least one role.") Role role, Address billingAddress,
+                Address shippingAddress) {
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -116,6 +186,11 @@ public class User implements Serializable {
 		this.shippingAddress = shippingAddress;
 	}
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 	/**
 	 * @return the id
 	 */
@@ -200,6 +275,11 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
+<<<<<<< HEAD
+=======
+	
+
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 	/**
 	 * @return the role
 	 */
@@ -270,5 +350,14 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+	
+	
+	
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 
 }

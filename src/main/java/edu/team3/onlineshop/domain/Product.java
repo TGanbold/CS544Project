@@ -1,5 +1,6 @@
 package edu.team3.onlineshop.domain;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -75,10 +76,42 @@ public class Product {
 	@JsonView(View.Summary.class)
 	private boolean isAvailable = true;
 	 
+=======
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.team3.onlineshop.View;
+
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author team 3
+ *
+ */
+
+@Entity(name = "products")
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"merchant_id","title"})})
+public class Product {
+	@JsonView(View.Summary.class)
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	
+
+	@JsonView(View.Summary.class)
+	@NotBlank(message = "Title field is required")
+	private String title;
+
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
 	@JsonView(View.Summary.class)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="merchant_id")
 	private Merchant merchant;
+<<<<<<< HEAD
 	
 	@JsonView(View.Summary.class)
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -380,3 +413,7 @@ public class Product {
 	
 	
 }
+=======
+
+}
+>>>>>>> 7847999b6c8148a519ca3217f436aa2be35e8856
