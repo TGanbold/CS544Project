@@ -3,29 +3,34 @@ package edu.team3.onlineshop.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import edu.team3.onlineshop.View;
+import edu.team3.onlineshop.domain.ConfirmationToken;
 import edu.team3.onlineshop.domain.Merchant;
 import edu.team3.onlineshop.domain.User;
 import edu.team3.onlineshop.exceptions.AdminsCannotDeleteThemselvesException;
 import edu.team3.onlineshop.exceptions.ItemNotFoundException;
 import edu.team3.onlineshop.factory.UserFactory;
+import edu.team3.onlineshop.repository.ConfirmationTokenRepository;
+import edu.team3.onlineshop.repository.UserRepository;
 import edu.team3.onlineshop.security.JwtUtil;
+import edu.team3.onlineshop.service.EmailSenderService;
 import edu.team3.onlineshop.service.FileStorageService;
 import edu.team3.onlineshop.service.UserService;
 import edu.team3.onlineshop.service.impl.UserDetailsImpl;
 import edu.team3.onlineshop.service.impl.UserDetailsServiceImpl;
-import edu.team3.onlineshop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -34,7 +39,6 @@ import java.util.Map;
 
 /**
  * @author team 3
- *
  */
 
 @RestController
@@ -52,7 +56,20 @@ public class UserController {
     private FileStorageService fileStorageService;
 
     @Autowired
+    private Environment env;
+
+    @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
+
+    @Autowired
+    private EmailSenderService emailSenderService;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Autowired
     public UserController(UserService userService) {
@@ -95,7 +112,69 @@ public class UserController {
     @PostMapping("/register")
     public User createUser(@RequestBody @Valid User user) {
         UserFactory userFactory = UserFactory.getInstance();
-        return userService.saveUser(userFactory.createUser(user, "buyer"));
+        User existingUser = userRepository.findByUsernameIgnoreCase(user.getUsername());
+        if (existingUser != null) {
+            System.out.println("This email already exists!");
+
+        } else {
+            ConfirmationToken confirmationToken = new ConfirmationToken(user);
+            userService.saveUser(userFactory.createUser(user, "buyer"));
+            confirmationTokenRepository.save(confirmationToken);
+
+
+            SimpleMailMessage mailMessage= new SimpleMailMessage();
+
+            mailMessage.setTo(user.getUsername());
+            mailMessage.setSubject("Complete Registration!");
+            mailMessage.setFrom(env.getProperty("spring.mail.username"));
+            mailMessage.setText("To confirm your account, please click here : "
+                    + "http://localhost:8080/api/v1/users/confirm-account?token=" + confirmationToken.getConfirmationToken());
+
+            emailSenderService.sendEmail(mailMessage);
+
+        }
+        return user;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public ConfirmationTokenRepository getConfirmationTokenRepository() {
+        return confirmationTokenRepository;
+    }
+
+    public void setConfirmationTokenRepository(ConfirmationTokenRepository confirmationTokenRepository) {
+        this.confirmationTokenRepository = confirmationTokenRepository;
+    }
+
+    public EmailSenderService getEmailSenderService() {
+        return emailSenderService;
+    }
+
+    public void setEmailSenderService(EmailSenderService emailSenderService) {
+        this.emailSenderService = emailSenderService;
+    }
+
+    @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+            User user = userRepository.findByUsernameIgnoreCase(token.getUser().getUsername());
+            user.setEnabled(true);
+            userRepository.save(user);
+            modelAndView.setViewName("accountVerified");
+        } else {
+            modelAndView.addObject("message", "The link is invalid or broken!");
+            modelAndView.setViewName("error");
+        }
+
+        return modelAndView;
     }
 
     @JsonView(View.Summary.class)
