@@ -1,4 +1,4 @@
-package edu.team3.onlineshop.domain;;
+package edu.team3.onlineshop.domain;
 
 import java.util.List;
 import java.util.Set;
