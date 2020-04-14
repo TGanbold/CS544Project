@@ -18,9 +18,7 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-
 import edu.team3.onlineshop.View;
-import edu.team3.onlineshop.domain.Product;
 
 @Entity
 public class ProductCategory {
@@ -97,6 +95,12 @@ public class ProductCategory {
         return category;
     }
 
+    /**
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     /**
      * @return the taxInPercentage
@@ -105,12 +109,6 @@ public class ProductCategory {
         return taxInPercentage;
     }
 
-    /**
-     * @param category the category to set
-     */
-    public void setCategory(String category) {
-        this.category = category;
-    }
     /**
      * @param taxInPercentage the taxInPercentage to set
      */
