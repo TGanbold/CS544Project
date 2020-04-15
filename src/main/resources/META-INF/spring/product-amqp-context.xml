@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <rabbit:connection-factory id="connectionFactory" host="localhost" username="guest" password="guest"/>
+ 
+    <rabbit:admin connection-factory="connectionFactory" />
+
+ 
+<!-- *********** DIRECT EXCHANGE ***************** -->
+	<rabbit:queue name="productQueue" durable="true"/>
+ 
+	 <rabbit:direct-exchange name="product" durable="true">
+	  <rabbit:bindings>
+	   <rabbit:binding queue="productQueue" key="product.key"></rabbit:binding>
+ 	  </rabbit:bindings>
+	 </rabbit:direct-exchange>
+
+<!-- **************** DIRECT PRODUCER  -->
+
+    <rabbit:template id="directTemplate" connection-factory="connectionFactory"
+                     reply-timeout="2000" routing-key="product.key"
+                     exchange="product" />
+
+ 
+ 
+</beans>
