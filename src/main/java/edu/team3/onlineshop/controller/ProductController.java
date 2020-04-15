@@ -14,12 +14,16 @@ import edu.team3.onlineshop.exceptions.ItemNotFoundException;
 import edu.team3.onlineshop.service.FileStorageService;
 import edu.team3.onlineshop.service.ProductService;
 import edu.team3.onlineshop.service.UserService;
+
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -42,6 +46,8 @@ public class ProductController {
 	@Autowired
 	private FileStorageService fileStorageService;
 	
+	@Autowired
+	RabbitTemplate rabbitTemplate;
 	
 	
 //	/**
@@ -141,7 +147,11 @@ public class ProductController {
 		}
 		//System.err.println("Merchant found: "+m);
 		product.setMerchant(m);
-		return productService.save(product);
+		
+		productService.save(product);
+		Optional<Product> newProduct = productService.get(product.getId());
+		rabbitTemplate.convertAndSend(newProduct);
+		return product;
 		
 	}
 	

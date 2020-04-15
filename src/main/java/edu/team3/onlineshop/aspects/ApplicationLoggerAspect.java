@@ -35,9 +35,9 @@ public class ApplicationLoggerAspect {
 	}
 	
 	/*@Before("execution(* edu.team3.onlineshop.service.OrderService..save*(..))")
-	  public void logResource(JoinPoint joinPoint) {
+	  public void logResourceName(JoinPoint joinPoint) {
 		    log.debug("\n \n \n ");
-		log.debug("*****************************New Order saving*****************************************",
+		log.debug("*****************************Order saving*****************************************",
 				joinPoint.getSignature().getDeclaringType(),
 				joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
 		log.debug("--------------------------------------------------------------------------\n \n \n");
