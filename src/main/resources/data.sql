@@ -25,11 +25,11 @@ INSERT IGNORE INTO product_image (id,image_url) VALUES
 
 INSERT IGNORE INTO products (product_number,description,discount,price, qty_avail, summary, title, category_id, merchant_id,is_available) VALUES
 ("LG32-MX","",6, 256.98, 13, "The Denim Jacket | Uniform ", "The Denim Jacket | Uniform",1,2,1),
-("GLJ32KE","Merino Wool Knit Men",4, 1996.98, 12, "MERINO WOOL KNIT MEN", "MERINO WOOL KNIT MEN",3,7,1),
-("HP232ENVY","Scandia Woods Crew Neck Sweatshirt",2, 456.98, 123, "HP Envy is a Great Laptop", "HP Envy GH456",2,2,1),
-("GLJ32KE","Facade Jewelleries is fitted for all occcasions",4, 1996.98, 12, "Facade Gold Necklace 23 Karate Gold", "Facade Gold Necklace 23 Karate Gold",3,2,1),
+("GLJ32KE","Merino Wool Knit Men",4, 1996.98, 12, "MERINO WOOL KNIT Women", "MERINO WOOL KNIT Women",1,7,1),
+("HP232ENVY","Scandia Woods Crew Neck Sweatshirt",2, 456.98, 123, " Crew Neck Sweatshirtp", " Crew Neck Sweatshirt",1,2,1),
+("GLJ32KE","Flounce-Hem Fit-and-Flare Dress",4, 1996.98, 12, "Flounce-Hem Fit-and-Flare Dressd", "Flounce-Hem Fit-and-Flare Dress",1,2,1),
 ("HP232ENVY","Scandia Woods Crew Neck Sweatshirt",2, 456.98, 123, "HP Envy is a Great Laptop", "HP Envy GH456",2,6,1),
-("LG32-MX","Plasma TV from LG is so beautifully crafted",6, 256.98, 13, "LG Plasma TV ", "LG Plasma TV 32 Inch Screen",1,6,1),
+("LG32-MX","Plasma TV from LG is so beautifully crafted",6, 256.98, 13, "LG Plasma TV ", "LG Plasma TV 32 Inch Screen",2,6,1),
 ("GLJ32KE","Facade Jewelleries is fitted for all occcasions",4, 1996.98, 12, "Facade Gold Necklace 23 Karate Gold", "Facade Gold Necklace 23 Karate Gold",3,6,1),
 ("HP232ENVY","Merino Wool Knit Men",2, 456.98, 123, "HP Envy is a Great Laptop", "HP Envy GH456",2,6,1),
 ("HP232ENVY","Plasma TV from LG is so beautifully crafted",2, 496.98, 123, "HP Envy is a Great Laptop", "HP Envy GH456 20GB RAM",2,7,1);
