@@ -2,7 +2,7 @@ INSERT IGNORE INTO product_category (category, tax_in_percentage) VALUES ("T-Shi
 INSERT IGNORE INTO roles (id,type) VALUES (1,"ROLE_BUYER"), (2,"ROLE_MERCHANT"), (3,"ROLE_ADMIN");
 INSERT IGNORE INTO users (username, enabled, first_name, last_name, password, role_id) VALUES
 ("admin@miu.edu", TRUE, "Admin", "Super Privileged", "admin" ,3), /* id: 1 */
-("merchant@miu.edu", TRUE, "merchant", "Medium privileged", "faculty",2), /* id: 2 */
+("merchant@miu.edu", TRUE, "merchant", "Medium privileged", "merchant",2), /* id: 2 */
 ("user@miu.edu", TRUE, "User", "Low Privileged", "user", 1), /* id: 3 */
 ("eauser1@miu.edu", TRUE, "EA Student 1", "Low Privileged", "eauser1" ,1), /* id: 4 */
 ("eauser2@miu.edu", TRUE, "EA Student 2", "Low Privileged", "eauser2", 1), /* id: 5 */
