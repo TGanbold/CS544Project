@@ -1,4 +1,4 @@
-INSERT IGNORE INTO product_category (category, tax_in_percentage) VALUES ("Electronics", 0.54), ("Computer", 1.09), ("Fashion",1.54), ("Building Tools",2.43), ("Jewellery", 1.23);
+INSERT IGNORE INTO product_category (category, tax_in_percentage) VALUES ("T-Shirt", 0.54), ("Electronics", 1.09), ("Bag",1.54), ("Dress",2.43), ("Accessories", 1.23);
 INSERT IGNORE INTO roles (id,type) VALUES (1,"ROLE_BUYER"), (2,"ROLE_MERCHANT"), (3,"ROLE_ADMIN");
 INSERT IGNORE INTO users (username, enabled, first_name, last_name, password, role_id) VALUES
 ("admin@miu.edu", TRUE, "Admin", "Super Privileged", "admin" ,3), /* id: 1 */
@@ -10,7 +10,7 @@ INSERT IGNORE INTO users (username, enabled, first_name, last_name, password, ro
 ("eauser4@miu.edu", TRUE, "Merchant", "Target", "eauser4", 2);  /* id: 6 */
 
 REPLACE INTO merchants (user_id,biz_name,office_phone_1, can_sell) VALUES
-(2,"Walco Mart","641 819 1136", TRUE),(7,"Pacific Markets","641 819 1136", FALSE),(6,"Amazon Techs","641 819 1136", FALSE);
+(2,"WalMart","641 819 1136", TRUE),(7,"Golden Market","641 819 1136", FALSE),(6,"MUM Store","641 819 1136", FALSE);
 
 INSERT IGNORE INTO product_image (id,image_url) VALUES
 (1,"http://localhost:8080/productimages/1.jpg"),
