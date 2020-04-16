@@ -13,8 +13,10 @@ import edu.team3.onlineshop.domain.User;
 import edu.team3.onlineshop.exceptions.ItemNotFoundException;
 import edu.team3.onlineshop.service.FileStorageService;
 import edu.team3.onlineshop.service.ProductService;
+import edu.team3.onlineshop.service.RabbitMQSender;
 import edu.team3.onlineshop.service.UserService;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,6 +50,11 @@ public class ProductController {
 	
 	@Autowired
 	RabbitTemplate rabbitTemplate;
+
+	@Autowired
+	RabbitMQSender rabbitMQSender;
+
+	private AmqpTemplate amqpTemplate;
 	
 	
 //	/**
@@ -148,11 +155,14 @@ public class ProductController {
 		//System.err.println("Merchant found: "+m);
 		product.setMerchant(m);
 		
+		//productService.save(product);
+//		Optional<Product> newProduct = productService.get(product.getId());
+//		rabbitTemplate.convertAndSend(newProduct);Optional<Product> newProduct = productService.get(product.getId());
+//		rabbitTemplate.convertAndSend(newProduct);
+
 		productService.save(product);
-		Optional<Product> newProduct = productService.get(product.getId());
-		rabbitTemplate.convertAndSend(newProduct);
+		rabbitMQSender.send(product);
 		return product;
-		
 	}
 	
 	//fileupload features
